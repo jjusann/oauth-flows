@@ -1,0 +1,14 @@
+# Build output
+bin/
+obj/
+
+# Real secrets, never commit this one
+MachineClient/appsettings.json
+
+# Editor/IDE clutter
+.vs/
+.vscode/
+*.user
+
+# OS clutter
+.DS_Store

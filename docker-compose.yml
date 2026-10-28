@@ -1,0 +1,39 @@
+services:
+  keycloak-db:
+    image: postgres:16
+    container_name: oauth-flows-keycloak-db
+    environment:
+      POSTGRES_DB: keycloak
+      POSTGRES_USER: keycloak
+      POSTGRES_PASSWORD: keycloak
+    volumes:
+      - keycloak-db-data:/var/lib/postgresql/data
+    networks:
+      - oauth-flows-net
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:25.0
+    container_name: oauth-flows-keycloak
+    command: start-dev --import-realm
+    environment:
+      KC_DB: postgres
+      KC_DB_URL: jdbc:postgresql://keycloak-db:5432/keycloak
+      KC_DB_USERNAME: keycloak
+      KC_DB_PASSWORD: keycloak
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./realm-export.json:/opt/keycloak/data/import/realm-export.json
+    depends_on:
+      - keycloak-db
+    networks:
+      - oauth-flows-net
+
+networks:
+  oauth-flows-net:
+    driver: bridge
+
+volumes:
+  keycloak-db-data:
