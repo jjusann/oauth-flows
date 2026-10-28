@@ -1,4 +1,5 @@
 {
+  "_note": "Reference only. This realm-export.json does not reliably import standard Keycloak scopes (profile, email, roles) via `start-dev --import-realm`, see README.md section 6.4. The actual realm for this project was built manually through the admin console following README.md section 1. Do not rely on this file alone to set up the realm.",
   "realm": "oauth-flows",
   "enabled": true,
   "sslRequired": "none",
@@ -43,7 +44,6 @@
       "enabled": true,
       "publicClient": false,
       "protocol": "openid-connect",
-      "secret": "machine-client-secret",
       "standardFlowEnabled": false,
       "implicitFlowEnabled": false,
       "directAccessGrantsEnabled": false,
